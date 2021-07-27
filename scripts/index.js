@@ -24,6 +24,12 @@ function getElement(...elements) {
   }
 }
 
+function createElementGrid(numberOfTags, tag, textContent, className, append) {
+  for (let u = 0; u < numberOfTags; u++) {
+    createElement(tag, textContent, className, append);
+  }
+}
+
 //Interface
 
 function cContainers() {
@@ -36,7 +42,7 @@ function cContainers() {
 function cMiddleContainer() {
   const middle = getElement('.container__middle');
   createElement('div', '', 'container__middle__top', middle);
-  createElement('div', '', 'container__middle__mid', middle);
+  createElement('div', '', 'container__middle__bookcase', middle);
   createElement('div', '', 'container__middle__bot', middle);
 }
 
@@ -59,8 +65,20 @@ function cMiddleContainerTopBot() {
   );
 }
 
+function cMiddleContainerBookcase() {
+  const bookcase = getElement('.container__middle__bookcase');
+  createElementGrid(
+    69,
+    'div',
+    '',
+    'container__middle__bookcase__book',
+    bookcase
+  );
+}
+
 cContainers();
 cMiddleContainer();
 cMiddleContainerTopBot();
+cMiddleContainerBookcase();
 
 //
