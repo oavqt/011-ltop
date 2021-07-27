@@ -33,6 +33,34 @@ function cContainers() {
   createElement('div', '', 'container__right', container);
 }
 
+function cMiddleContainer() {
+  const middle = getElement('.container__middle');
+  createElement('div', '', 'container__middle__top', middle);
+  createElement('div', '', 'container__middle__mid', middle);
+  createElement('div', '', 'container__middle__bot', middle);
+}
+
+function cMiddleContainerTopBot() {
+  const middleContainerTopBot = getElement(
+    '.container__middle__top',
+    '.container__middle__bot'
+  );
+  createElement(
+    'div',
+    '',
+    'container__middle__top__temp',
+    middleContainerTopBot[0]
+  );
+  createElement(
+    'div',
+    '',
+    'container__middle__bot__temp',
+    middleContainerTopBot[1]
+  );
+}
+
 cContainers();
+cMiddleContainer();
+cMiddleContainerTopBot();
 
 //
