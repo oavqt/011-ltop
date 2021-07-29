@@ -2,76 +2,91 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 
 body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #b99566;
   color: white;
+  font-family: 'Roboto', sans-serif;
 }
 
-.container {
+.library {
+  align-items: center;
   display: flex;
   height: 100vh;
+  justify-content: center;
+  margin: auto;
+  position: relative;
   width: 100vw;
 }
 
-.container__left {
-  height: 100%;
-  width: 8%;
+.library__bookcase {
   background-color: #b99566;
-}
-
-.container__middle {
+  box-shadow: inset 0 0 15rem 1.5rem rgba(0, 0, 0, 0.25);
   display: flex;
   flex-direction: column;
-  height: 100%;
-  width: 84%;
-  background-color: #b99566;
+  height: 75%;
+  width: 75%;
 }
 
-.container__middle__top {
+.bookcase__header {
+  display: flex;
+  justify-content: center;
+  background-color: white;
   height: 5%;
 }
 
-.container__middle__top__temp {
-  height: 100%;
-  width: 35em;
-  background-color: #c4c4c4;
-  margin: auto;
+.bookcase__grid {
+  display: grid;
+  grid-template: repeat(10, 30em) / repeat(auto-fit, 20em);
+  gap: 2em;
+  height: 90%;
+  justify-content: center;
+  margin: 6em 0;
+  overflow-y: auto;
+  padding: 0 6em;
+  scrollbar-width: none;
+  width: 100%;
 }
 
-.container__middle__bookcase {
-  display: grid;
-  grid-template: repeat(20, 10em) / repeat(auto-fit, 10em);
-  gap: 2em;
-  justify-content: center;
-  height: 90%;
-  width: 100%;
-  padding: 6em;
-  box-shadow: inset 0 0 15rem 1.5rem rgba(0, 0, 0, 0.25);
-  /* border-radius: 0.75rem; */
-  overflow-y: auto;
-  scrollbar-width: none;
-}
-.container__middle__bookcase::-webkit-scrollbar {
+.bookcase__grid::-webkit-scrollbar {
   display: none;
 }
 
-.container__middle__bookcase__book {
+.bookcase__book {
   background-color: white;
 }
 
-.container__middle__bot {
+.bookcase__footer {
+  background-color: white;
   height: 5%;
 }
 
-.container__middle__bot__temp {
+.input {
+  color: white;
+  display: block;
+  background-color: #101010;
+  border: 0.2em solid #313131;
   height: 100%;
   width: 35em;
-  background-color: #c4c4c4;
-  margin: auto;
 }
 
-.container__right {
+.input:focus {
+  border: 0.2em solid #1c87c9;
+  outline: none;
+}
+
+.btn {
+  display: block;
+  background-color: #c4c4c4;
+  border: none;
   height: 100%;
-  width: 8%;
-  background-color: #b99566;
+  margin: auto;
+  width: 20em;
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+
+.btn--search {
+  background-color: #313131;
+  margin: 0;
+  width: 4em;
 }

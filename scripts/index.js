@@ -1,14 +1,13 @@
 //Library Interface
 
-// Element Factory
+//Element Factory
 
-function createElement(tag, textContent, className, append) {
+function createElement(tag, type, textContent, className, append) {
   tempVariable = document.createElement(tag);
   tempVariable.className = className;
   tempVariable.textContent = textContent;
-  if (append) {
-    append.appendChild(tempVariable);
-  }
+  if (type) tempVariable.type = type;
+  if (append) append.appendChild(tempVariable);
 }
 
 function getElement(...elements) {
@@ -24,61 +23,51 @@ function getElement(...elements) {
   }
 }
 
-function createElementGrid(numberOfTags, tag, textContent, className, append) {
+function createElementGrid(
+  numberOfTags,
+  tag,
+  type,
+  textContent,
+  className,
+  append
+) {
   for (let u = 0; u < numberOfTags; u++) {
-    createElement(tag, textContent, className, append);
+    createElement(tag, type, textContent, className, append);
   }
 }
 
 //Interface
 
-function cContainers() {
-  const container = document.querySelector('.container');
-  createElement('div', '', 'container__left', container);
-  createElement('div', '', 'container__middle', container);
-  createElement('div', '', 'container__right', container);
+function cLibrary() {
+  const library = document.querySelector('.library');
+  createElement('div', '', '', 'library__bookcase', library);
 }
 
-function cMiddleContainer() {
-  const middle = getElement('.container__middle');
-  createElement('div', '', 'container__middle__top', middle);
-  createElement('div', '', 'container__middle__bookcase', middle);
-  createElement('div', '', 'container__middle__bot', middle);
+function cBookCase() {
+  const bookcase = getElement('.library__bookcase');
+  createElement('div', '', '', 'bookcase__header', bookcase);
+  createElement('div', '', '', 'bookcase__grid', bookcase);
+  createElement('div', '', '', 'bookcase__footer', bookcase);
 }
 
-function cMiddleContainerTopBot() {
-  const middleContainerTopBot = getElement(
-    '.container__middle__top',
-    '.container__middle__bot'
+function cHeaderFooterElements() {
+  const middlelibraryTopBot = getElement(
+    '.bookcase__header',
+    '.bookcase__footer'
   );
-  createElement(
-    'div',
-    '',
-    'container__middle__top__temp',
-    middleContainerTopBot[0]
-  );
-  createElement(
-    'div',
-    '',
-    'container__middle__bot__temp',
-    middleContainerTopBot[1]
-  );
+  createElement('input', 'search', '', 'input', middlelibraryTopBot[0]);
+  createElement('button', '', '', 'btn btn--search', middlelibraryTopBot[0]);
+  createElement('button', '', '', 'btn btn-add', middlelibraryTopBot[1]);
 }
 
-function cMiddleContainerBookcase() {
-  const bookcase = getElement('.container__middle__bookcase');
-  createElementGrid(
-    69,
-    'div',
-    '',
-    'container__middle__bookcase__book',
-    bookcase
-  );
+function cBookCaseBook() {
+  const bookcase = getElement('.bookcase__grid');
+  createElementGrid(5, 'div', '', '', 'bookcase__book', bookcase);
 }
 
-cContainers();
-cMiddleContainer();
-cMiddleContainerTopBot();
-cMiddleContainerBookcase();
+cLibrary();
+cBookCase();
+cBookCaseBook();
+cHeaderFooterElements();
 
 //
