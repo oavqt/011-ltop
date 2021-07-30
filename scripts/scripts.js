@@ -2,13 +2,15 @@
 
 //Interface
 
-getElement('.btn--form').addEventListener('click', addToForm);
+getElement('.btn--form').addEventListener('click', () => {
+  getElement('.bookcase__form').classList.remove('bookcase__form--fade');
+  getElement('.bookcase__form').classList.add('bookcase__form--active');
+});
 
-function addToForm() {
-  getElement('.bookcase__footer').classList.toggle('bookcase__footer--active');
-  getElement('.bookcase__form').classList.toggle('bookcase__form--active');
-  getElement('.btn--form').classList.toggle('btn--form--active');
-}
+getElement('.btn--cancel').addEventListener('click', () => {
+  getElement('.bookcase__form').classList.add('bookcase__form--fade');
+  getElement('.bookcase__form').classList.remove('bookcase__form--active');
+});
 
 //Library
 

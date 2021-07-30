@@ -47,10 +47,11 @@ function cBookCase() {
   const bookcase = getElement('.library__bookcase');
   createElement('div', '', '', 'bookcase__header', bookcase);
   createElement('div', '', '', 'bookcase__grid', bookcase);
+  createElement('div', '', '', 'bookcase__form', bookcase);
   createElement('div', '', '', 'bookcase__footer', bookcase);
 }
 
-function cHeaderFooterForm() {
+function cHeaderFooter() {
   const middlelibraryTopBot = getElement(
     '.bookcase__header',
     '.bookcase__footer'
@@ -63,13 +64,12 @@ function cHeaderFooterForm() {
     middlelibraryTopBot[0]
   );
   createElement('button', '', '', 'btn btn--search', middlelibraryTopBot[0]);
-  createElement('form', '', '', 'bookcase__form', middlelibraryTopBot[1]);
   createElement('button', '', '', 'btn btn--form', middlelibraryTopBot[1]);
 }
 
 function cBookCaseBook() {
   const bookcase = getElement('.bookcase__grid');
-  createElementGrid(10, 'div', '', '', 'bookcase__book', bookcase);
+  createElementGrid(5, 'div', '', '', 'bookcase__book', bookcase);
 }
 
 function cFormLabel() {
@@ -79,8 +79,7 @@ function cFormLabel() {
   createElement('label', '', 'Description', 'label label--description', form);
   createElement('label', '', 'Genre', 'label label--genre', form);
   createElement('label', '', 'Pages', 'label label--pages', form);
-  createElement('button', '', 'Cancel', 'btn btn--cancel', form);
-  createElement('button', '', 'Add', 'btn btn--add', form);
+  createElement('label', '', '', 'label label--buttons', form);
 }
 
 function cFormInput() {
@@ -89,19 +88,22 @@ function cFormInput() {
     '.label--author',
     '.label--description',
     '.label--genre',
-    '.label--pages'
+    '.label--pages',
+    '.label--buttons'
   );
   createElement('input', 'text', '', 'input input--title', label[0]);
   createElement('input', 'text', '', 'input input--author', label[1]);
   createElement('input', 'text', '', 'input input--description', label[2]);
   createElement('input', 'text', '', 'input input--genre', label[3]);
   createElement('input', 'number', '', 'input input--pages', label[4]);
+  createElement('button', '', 'Cancel', 'btn btn--cancel', label[5]);
+  createElement('button', '', 'Add', 'btn btn--add', label[5]);
 }
 
 cLibrary();
 cBookCase();
 cBookCaseBook();
-cHeaderFooterForm();
+cHeaderFooter();
 cFormLabel();
 cFormInput();
 
