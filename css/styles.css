@@ -12,7 +12,6 @@ body {
   height: 100vh;
   justify-content: center;
   margin: auto;
-  position: relative;
   width: 100vw;
 }
 
@@ -26,21 +25,24 @@ body {
 }
 
 .bookcase__header {
+  background-color: transparent;
   display: flex;
+  height: 3.75%;
   justify-content: center;
-  background-color: white;
-  height: 5%;
+  position: absolute;
+  width: 75%;
 }
 
 .bookcase__grid {
   display: grid;
-  grid-template: repeat(10, 30em) / repeat(auto-fit, 20em);
+  grid-template: repeat(10, 100%) / repeat(auto-fit, 20em);
   gap: 2em;
   height: 90%;
   justify-content: center;
   margin: 6em 0;
   overflow-y: auto;
   padding: 0 6em;
+  position: relative;
   scrollbar-width: none;
   width: 100%;
 }
@@ -54,17 +56,42 @@ body {
 }
 
 .bookcase__footer {
-  background-color: white;
-  height: 5%;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  height: 3.75%;
+  justify-content: flex-end;
+  left: 50%;
+  position: absolute;
+  top: 85.6%;
+  transform: translate(-50%, -50%);
+  width: 20em;
+}
+
+.bookcase__footer--active {
+  height: 75%;
+  justify-content: center;
+  top: 50%;
+}
+
+.bookcase__form {
+  display: none;
+}
+
+.bookcase__form--active {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  background-color: #101010;
+  height: 73.582%;
+  margin: 5.97em 0 auto;
 }
 
 .input {
-  color: white;
-  display: block;
   background-color: #101010;
   border: 0.2em solid #313131;
-  height: 100%;
-  width: 35em;
+  color: white;
+  display: block;
 }
 
 .input:focus {
@@ -72,13 +99,14 @@ body {
   outline: none;
 }
 
+.input--search {
+  width: 50%;
+}
+
 .btn {
-  display: block;
-  background-color: #c4c4c4;
+  background-color: #313131;
   border: none;
-  height: 100%;
-  margin: auto;
-  width: 20em;
+  display: block;
 }
 
 .btn:hover {
@@ -87,6 +115,14 @@ body {
 
 .btn--search {
   background-color: #313131;
-  margin: 0;
   width: 4em;
+}
+
+.btn--form {
+  height: 100%;
+  width: 100%;
+}
+
+.btn--form--active {
+  height: 5%;
 }
