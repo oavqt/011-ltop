@@ -2,12 +2,12 @@
 
 //Element Factory
 
-function createElement(tag, type, textContent, className, append) {
-  tempVariable = document.createElement(tag);
+function createElement(tag, textContent, className, append) {
+  let tempVariable = document.createElement(tag);
   tempVariable.className = className;
   tempVariable.textContent = textContent;
-  if (type) tempVariable.type = type;
   if (append) append.appendChild(tempVariable);
+  return tempVariable;
 }
 
 function getElement(...elements) {
@@ -23,32 +23,19 @@ function getElement(...elements) {
   }
 }
 
-function createElementGrid(
-  numberOfTags,
-  tag,
-  type,
-  textContent,
-  className,
-  append
-) {
-  for (let u = 0; u < numberOfTags; u++) {
-    createElement(tag, type, textContent, className, append);
-  }
-}
-
 //Interface
 
 function cLibrary() {
   const library = document.querySelector('.library');
-  createElement('div', '', '', 'library__bookcase', library);
+  createElement('div', '', 'library__bookcase', library);
 }
 
 function cBookCase() {
   const bookcase = getElement('.library__bookcase');
-  createElement('div', '', '', 'bookcase__header', bookcase);
-  createElement('div', '', '', 'bookcase__grid', bookcase);
-  createElement('div', '', '', 'bookcase__form', bookcase);
-  createElement('div', '', '', 'bookcase__footer', bookcase);
+  createElement('div', '', 'bookcase__header', bookcase);
+  createElement('div', '', 'bookcase__grid', bookcase);
+  createElement('div', '', 'bookcase__form', bookcase);
+  createElement('div', '', 'bookcase__footer', bookcase);
 }
 
 function cHeaderFooter() {
@@ -56,30 +43,24 @@ function cHeaderFooter() {
     '.bookcase__header',
     '.bookcase__footer'
   );
-  createElement(
-    'input',
-    'search',
-    '',
-    'input input--search',
-    middlelibraryTopBot[0]
-  );
-  createElement('button', '', '', 'btn btn--search', middlelibraryTopBot[0]);
-  createElement('button', '', '', 'btn btn--form', middlelibraryTopBot[1]);
-}
-
-function cBookCaseBook() {
-  const bookcase = getElement('.bookcase__grid');
-  createElementGrid(5, 'div', '', '', 'bookcase__book', bookcase);
+  createElement('input', '', 'input input--search', middlelibraryTopBot[0]);
+  createElement('button', '', 'btn btn--search', middlelibraryTopBot[0]);
+  createElement('button', '', 'btn btn--form', middlelibraryTopBot[1]);
 }
 
 function cFormLabel() {
   const form = getElement('.bookcase__form');
-  createElement('label', '', 'Title', 'label label--title', form);
-  createElement('label', '', 'Author', 'label label--author', form);
-  createElement('label', '', 'Description', 'label label--description', form);
-  createElement('label', '', 'Genre', 'label label--genre', form);
-  createElement('label', '', 'Pages', 'label label--pages', form);
-  createElement('label', '', '', 'label label--buttons', form);
+  createElement('label', 'Title', 'label label--title', form);
+  createElement('label', 'Author', 'label label--author', form);
+  createElement('label', 'Description', 'label label--description', form);
+  createElement('label', 'Genre', 'label label--genre', form);
+  createElement('label', 'Language', 'label label--language', form);
+  createElement('label', 'Publisher', 'label label--publisher', form);
+  createElement('label', 'Publication date', 'label label--date', form);
+  createElement('label', 'ISBN-10', 'label label--ten', form);
+  createElement('label', 'ISBN-13', 'label label--thirteen', form);
+  createElement('label', 'Pages', 'label label--pages', form);
+  createElement('label', '', 'label label--buttons', form);
 }
 
 function cFormInput() {
@@ -88,23 +69,57 @@ function cFormInput() {
     '.label--author',
     '.label--description',
     '.label--genre',
+    '.label--language',
+    '.label--publisher',
+    '.label--date',
+    '.label--ten',
+    '.label--thirteen',
     '.label--pages',
     '.label--buttons'
   );
-  createElement('input', 'text', '', 'input input--title', label[0]);
-  createElement('input', 'text', '', 'input input--author', label[1]);
-  createElement('input', 'text', '', 'input input--description', label[2]);
-  createElement('input', 'text', '', 'input input--genre', label[3]);
-  createElement('input', 'number', '', 'input input--pages', label[4]);
-  createElement('button', '', 'Cancel', 'btn btn--cancel', label[5]);
-  createElement('button', '', 'Add', 'btn btn--add', label[5]);
+  createElement('input', '', 'input input--title', label[0]);
+  createElement('input', '', 'input input--author', label[1]);
+  createElement('input', '', 'input input--description', label[2]);
+  createElement('input', '', 'input input--genre', label[3]);
+  createElement('input', '', 'input input--language', label[4]);
+  createElement('input', '', 'input input--publisher', label[5]);
+  createElement('input', '', 'input input--date', label[6]);
+  createElement('input', '', 'input input--ten', label[7]);
+  createElement('input', '', 'input input--thirteen', label[8]);
+  createElement('input', '', 'input input--pages', label[9]);
+  createElement('button', 'Cancel', 'btn btn--cancel', label[10]);
+  createElement('button', 'Add', 'btn btn--add', label[10]);
+}
+
+function cAttributes() {
+  const input = getElement(
+    '.input--search',
+    '.input--title',
+    '.input--author',
+    '.input--description',
+    '.input--genre',
+    '.input--language',
+    '.input--publisher',
+    '.input--date',
+    '.input--ten',
+    '.input--thirteen'
+  );
+
+  {
+    for (let u = 0; u < input.length; u++) {
+      input[u].type = 'text';
+    }
+
+    getElement('.input--pages').setAttribute('type', 'number');
+    getElement('.input--search').setAttribute('placeholder', 'Search...');
+  }
 }
 
 cLibrary();
 cBookCase();
-cBookCaseBook();
 cHeaderFooter();
 cFormLabel();
 cFormInput();
+cAttributes();
 
 //
