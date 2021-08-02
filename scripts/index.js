@@ -50,6 +50,7 @@ function cHeaderFooter() {
 
 function cFormLabel() {
   const form = getElement('.bookcase__form');
+  createElement('h1', 'Project L', 'form__title', form);
   createElement('label', 'Title', 'label label--title', form);
   createElement('label', 'Author', 'label label--author', form);
   createElement('label', 'Description', 'label label--description', form);
@@ -61,6 +62,7 @@ function cFormLabel() {
   createElement('label', 'ISBN-13', 'label label--thirteen', form);
   createElement('label', 'Pages', 'label label--pages', form);
   createElement('div', '', 'form__buttons', form);
+  createElement('a', '', 'form__tags', form);
 }
 
 function cFormInput() {
@@ -91,6 +93,12 @@ function cFormInput() {
   createElement('button', 'Add', 'btn btn--add', label[10]);
 }
 
+function cTags() {
+  createElement('img', '', 'tags__github', getElement('.form__tags'));
+  createElement('img', '', 'tags__gitlogo', getElement('.form__tags'));
+  createElement('span', 'Oav', 'tags__name', getElement('.form__tags'));
+}
+
 function cAttributes() {
   const input = getElement(
     '.input--search',
@@ -101,18 +109,23 @@ function cAttributes() {
     '.input--language',
     '.input--publisher',
     '.input--date',
-    '.input--ten',
     '.input--thirteen'
   );
+  const number = getElement('.input--pages', '.input--ten');
 
-  {
-    for (let u = 0; u < input.length; u++) {
-      input[u].type = 'text';
-    }
-
-    getElement('.input--pages').setAttribute('type', 'number');
-    getElement('.input--search').setAttribute('placeholder', 'Search...');
+  for (let u = 0; u < input.length; u++) {
+    input[u].type = 'text';
   }
+
+  for (let u = 0; u < number.length; u++) {
+    number[u].type = 'number';
+  }
+
+  getElement('.input--search').setAttribute('placeholder', 'Search...');
+  getElement('.form__tags').href = 'https://github.com/oavqt';
+  getElement('.form__tags').target = '_blank';
+  getElement('.tags__github').src = 'images/github.png';
+  getElement('.tags__gitlogo').src = 'images/gitlogo.png';
 }
 
 cLibrary();
@@ -120,6 +133,7 @@ cBookCase();
 cHeaderFooter();
 cFormLabel();
 cFormInput();
+cTags();
 cAttributes();
 
 //

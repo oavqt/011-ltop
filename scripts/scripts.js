@@ -2,6 +2,27 @@
 
 //Interface
 
+//Book Example
+
+function example() {
+  myLibrary.push(
+    new book(
+      'Ben-Hur: A Tale of the Christ',
+      'Lew Wallace',
+      "Ben-Hur is one of the best selling books of all times. This poignant novel intertwines the life stories of a Jewish charioteer named Judah Ben-Hur and Jesus Christ. It explores the themes of betrayal and redemption. Ben-Hur's family is wrongly accused and convicted of treason during the time of Christ. Ben-Hur fights to clear his family's name and is ultimately inspired by the rise of Jesus Christ and his message. A powerful, compelling novel.",
+      'Literature & Fiction',
+      'English',
+      'Wilder Publications',
+      'March 25, 2014',
+      '161720340',
+      '978-1617203404',
+      '442'
+    )
+  );
+
+  myLibrary[myLibrary.length - 1].create();
+}
+
 function createBookElement() {
   const bookcase = getElement('.bookcase__grid');
   const book = createElement('div', '', 'bookcase__book', '');
@@ -111,7 +132,7 @@ function scrollBook(btn) {
 
   if (btn.className.includes('btn--book--active'))
     (top = 0), (addRemove = 'remove');
-  else (top = 500), (addRemove = 'add');
+  else (top = 1000), (addRemove = 'add');
 
   miscellaneous.forEach((div) => {
     if (btn.previousSibling === div) {
@@ -221,6 +242,10 @@ function addBookToLibrary() {
     description !== '' &&
     genre !== '' &&
     language !== '' &&
+    publisher !== '' &&
+    date !== '' &&
+    ten !== '' &&
+    thirteen !== '' &&
     pages !== ''
   ) {
     myLibrary.push(
@@ -260,5 +285,9 @@ getElement('.btn--cancel').addEventListener('click', () => {
 getElement('.btn--add').addEventListener('click', addBookToLibrary);
 
 document.body.addEventListener('click', btn, false);
+
+const imput = document.querySelectorAll('.bookcase__form input');
+
+example();
 
 //
