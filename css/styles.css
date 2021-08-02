@@ -90,6 +90,20 @@ input[type='number'] {
   width: 15%;
 }
 
+.btn--read {
+  background-color: transparent;
+  background-image: url(../images/nRead.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 1.5em;
+  height: 2em;
+  width: 2em;
+}
+
+.btn--read--active {
+  background-image: url(../images/read.png);
+}
+
 .btn--search {
   background-image: url(../images/search.png);
   background-position: center;
@@ -180,7 +194,7 @@ input[type='number'] {
 }
 
 .bookcase__genre {
-  background-image: url(../images/generic.png);
+  background-image: url(../images/genre.png);
   width: 100%;
 }
 

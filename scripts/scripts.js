@@ -10,6 +10,7 @@ function createBookElement() {
   const miscellaneous = createElement('div', '', 'bookcase__miscellaneous');
 
   let element = [
+    createElement('button', '', 'btn btn--read', book),
     createElement('div', '', 'bookcase__title', book),
     createElement('div', '', 'bookcase__author', book),
     createElement('div', '', 'bookcase__description', book),
@@ -32,16 +33,16 @@ function createBookElement() {
 function createBookElementElement() {
   const element = createBookElement();
 
-  createElement('h2', `${this.title}`, 'book__title', element[0]);
-  createElement('h3', `${this.author}`, 'book__author', element[1]);
-  createElement('p', `${this.description}`, 'book__description', element[2]);
-  createElement('span', `${this.genre}`, 'book__genre', element[4]);
-  createElement('span', `${this.language}`, 'book__language', element[5]);
-  createElement('span', `${this.publisher}`, 'book__publisher', element[6]);
-  createElement('span', `${this.date}`, 'book__date', element[7]);
-  createElement('span', `${this.ten}`, 'book__ten', element[8]);
-  createElement('span', `${this.thirteen}`, 'book__thirteen', element[9]);
-  createElement('span', `${this.pages}`, 'book__pages', element[10]);
+  createElement('h2', `${this.title}`, 'book__title', element[1]);
+  createElement('h3', `${this.author}`, 'book__author', element[2]);
+  createElement('p', `${this.description}`, 'book__description', element[3]);
+  createElement('span', `${this.genre}`, 'book__genre', element[5]);
+  createElement('span', `${this.language}`, 'book__language', element[6]);
+  createElement('span', `${this.publisher}`, 'book__publisher', element[7]);
+  createElement('span', `${this.date}`, 'book__date', element[8]);
+  createElement('span', `${this.ten}`, 'book__ten', element[9]);
+  createElement('span', `${this.thirteen}`, 'book__thirteen', element[10]);
+  createElement('span', `${this.pages}`, 'book__pages', element[11]);
 
   element[element.length - 1].setAttribute(
     'data-pos',
@@ -92,6 +93,12 @@ function btn(e) {
     e.target.className.includes('btn btn--delete')
   ) {
     deleteBook(e.target);
+  } else if (
+    e.target &&
+    e.target.matches('button') &&
+    e.target.className.includes('btn btn--read')
+  ) {
+    read(e.target);
   }
 }
 
@@ -104,7 +111,7 @@ function scrollBook(btn) {
 
   if (btn.className.includes('btn--book--active'))
     (top = 0), (addRemove = 'remove');
-  else (top = 300), (addRemove = 'add');
+  else (top = 500), (addRemove = 'add');
 
   miscellaneous.forEach((div) => {
     if (btn.previousSibling === div) {
@@ -137,6 +144,12 @@ function deleteBook(btn) {
     myLibrary[u].data = [u].toString();
     myLibrary[u].create();
   }
+}
+
+function read(btn) {
+  if (btn.className.includes('btn--read--active'))
+    btn.classList.remove('btn--read--active');
+  else btn.classList.add('btn--read--active');
 }
 
 //Library
