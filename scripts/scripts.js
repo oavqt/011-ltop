@@ -47,6 +47,7 @@ function createBookElementElement() {
     'data-pos',
     `${myLibrary.indexOf(this)}`
   );
+  this.data = myLibrary.indexOf(this);
 }
 
 function clearForm() {
@@ -78,17 +79,23 @@ function clearForm() {
   getElement('.bookcase__form').classList.remove('bookcase__form--active');
 }
 
-function btnScroll(e) {
+function btn(e) {
   if (
     e.target &&
     e.target.matches('button') &&
     e.target.className.includes('btn btn--book' || 'btn btn--book--active')
   ) {
-    btnScrollDiv(e.target);
+    scrollBook(e.target);
+  } else if (
+    e.target &&
+    e.target.matches('button') &&
+    e.target.className.includes('btn btn--delete')
+  ) {
+    deleteBook(e.target);
   }
 }
 
-function btnScrollDiv(btn) {
+function scrollBook(btn) {
   const miscellaneous = [
     ...document.querySelectorAll('.bookcase__miscellaneous'),
   ];
@@ -111,6 +118,27 @@ function btnScrollDiv(btn) {
   btn.classList[`${addRemove}`]('btn--book--active');
 }
 
+function deleteBook(btn) {
+  const bookcase = getElement('.bookcase__grid');
+  const book = [...document.querySelectorAll('.bookcase__book')];
+
+  book.forEach((book) => {
+    if (book.contains(btn)) {
+      myLibrary.splice(book.dataset['pos'], 1);
+    }
+    book.remove();
+  });
+
+  while (bookcase.firstChild) {
+    bookcase.remove(bookcase.lastChild);
+  }
+
+  for (let u = 0; u < myLibrary.length; u++) {
+    myLibrary[u].data = [u].toString();
+    myLibrary[u].create();
+  }
+}
+
 //Library
 
 let myLibrary = [];
@@ -125,7 +153,8 @@ function book(
   date,
   ten,
   thirteen,
-  pages
+  pages,
+  data
 ) {
   this.title = title;
   this.author = author;
@@ -137,6 +166,7 @@ function book(
   this.ten = ten;
   this.thirteen = thirteen;
   this.pages = pages;
+  this.data = data;
   this.info = () => {
     return `${this.title}, ${this.author}, ${this.description}, ${this.genre}, ${this.language}, ${this.publisher}, ${this.date}, ${this.ten}, ${this.thirteen}, ${this.pages}`;
   };
@@ -170,6 +200,7 @@ function addBookToLibrary() {
   const ten = input[7].value;
   const thirteen = input[8].value;
   const pages = input[9].value;
+  const data = '';
 
   if (
     title !== '' &&
@@ -190,7 +221,8 @@ function addBookToLibrary() {
         date,
         ten,
         thirteen,
-        pages
+        pages,
+        data
       )
     );
 
@@ -214,6 +246,6 @@ getElement('.btn--cancel').addEventListener('click', () => {
 
 getElement('.btn--add').addEventListener('click', addBookToLibrary);
 
-document.body.addEventListener('click', btnScroll, false);
+document.body.addEventListener('click', btn, false);
 
 //
