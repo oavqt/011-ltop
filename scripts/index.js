@@ -60,7 +60,7 @@ function cFormLabel() {
   createElement('label', 'ISBN-10', 'label label--ten', form);
   createElement('label', 'ISBN-13', 'label label--thirteen', form);
   createElement('label', 'Pages', 'label label--pages', form);
-  createElement('label', '', 'label label--buttons', form);
+  createElement('div', '', 'form__buttons', form);
 }
 
 function cFormInput() {
@@ -75,7 +75,7 @@ function cFormInput() {
     '.label--ten',
     '.label--thirteen',
     '.label--pages',
-    '.label--buttons'
+    '.form__buttons'
   );
   createElement('input', '', 'input input--title', label[0]);
   createElement('input', '', 'input input--author', label[1]);
