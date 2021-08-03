@@ -4,25 +4,6 @@
 
 //Book Example
 
-function example() {
-  myLibrary.push(
-    new book(
-      'Ben-Hur: A Tale of the Christ',
-      'Lew Wallace',
-      "Ben-Hur is one of the best selling books of all times. This poignant novel intertwines the life stories of a Jewish charioteer named Judah Ben-Hur and Jesus Christ. It explores the themes of betrayal and redemption. Ben-Hur's family is wrongly accused and convicted of treason during the time of Christ. Ben-Hur fights to clear his family's name and is ultimately inspired by the rise of Jesus Christ and his message. A powerful, compelling novel.",
-      'Literature & Fiction',
-      'English',
-      'Wilder Publications',
-      'March 25, 2014',
-      '161720340',
-      '978-1617203404',
-      '442'
-    )
-  );
-
-  myLibrary[myLibrary.length - 1].create();
-}
-
 function createBookElement() {
   const bookcase = getElement('.bookcase__grid');
   const book = createElement('div', '', 'bookcase__book', '');
@@ -165,6 +146,10 @@ function deleteBook(btn) {
     myLibrary[u].data = [u].toString();
     myLibrary[u].create();
   }
+
+  if (isStorageAvailable('localStorage')) {
+    localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
+  } else console.log('noLocalStorage');
 }
 
 function read(btn) {
@@ -267,6 +252,10 @@ function addBookToLibrary() {
     myLibrary[myLibrary.length - 1].create();
 
     clearForm();
+
+    if (isStorageAvailable('localStorage')) {
+      localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
+    } else console.log('noLocalStorage');
   }
 }
 
@@ -288,6 +277,54 @@ document.body.addEventListener('click', btn, false);
 
 const imput = document.querySelectorAll('.bookcase__form input');
 
-example();
+// local Storage
+
+function isStorageAvailable(type) {
+  let storage;
+  try {
+    storage = window[type];
+    let temp = 'yep';
+    storage.setItem(temp, temp);
+    storage.removeItem(temp);
+    return true;
+  } catch (e) {
+    return (
+      e instanceof DOMException &&
+      (e.code === 22 ||
+        e.code === 1014 ||
+        e.name === 'QuotaExceededError' ||
+        e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
+      storage &&
+      storage.length !== 0
+    );
+  }
+}
+
+function getLocaleStorage() {
+  let unparseMyLibrary = localStorage.getItem('myLibrary');
+  let parseMyLibrary = JSON.parse(unparseMyLibrary);
+
+  for (let u = 0; u < parseMyLibrary.length; u++) {
+    myLibrary.push(
+      new book(
+        parseMyLibrary[u].title,
+        parseMyLibrary[u].author,
+        parseMyLibrary[u].description,
+        parseMyLibrary[u].genre,
+        parseMyLibrary[u].language,
+        parseMyLibrary[u].publisher,
+        parseMyLibrary[u].date,
+        parseMyLibrary[u].ten,
+        parseMyLibrary[u].thirteen,
+        parseMyLibrary[u].pages,
+        parseMyLibrary[u].data
+      )
+    );
+
+    myLibrary[myLibrary.length - 1].create();
+  }
+}
+
+getLocaleStorage();
 
 //
