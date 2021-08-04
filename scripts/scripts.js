@@ -2,17 +2,20 @@
 
 //Interface
 
-//Book Example
-
-function createBookElement() {
+function createBookElement(read) {
   const bookcase = getElement('.bookcase__grid');
   const book = createElement('div', '', 'bookcase__book', '');
-  bookcase.appendChild(book);
-
   const miscellaneous = createElement('div', '', 'bookcase__miscellaneous');
 
+  bookcase.appendChild(book);
+
+  let btn;
+  if (read === 'yes')
+    btn = createElement('button', '', 'btn btn--read btn--read--active', book);
+  else btn = createElement('button', '', 'btn btn--read', book);
+
   let element = [
-    createElement('button', '', 'btn btn--read', book),
+    btn,
     createElement('div', '', 'bookcase__title', book),
     createElement('div', '', 'bookcase__author', book),
     createElement('div', '', 'bookcase__description', book),
@@ -33,7 +36,7 @@ function createBookElement() {
 }
 
 function createBookElementElement() {
-  const element = createBookElement();
+  const element = createBookElement(this.read);
 
   createElement('h2', `${this.title}`, 'book__title', element[1]);
   createElement('h3', `${this.author}`, 'book__author', element[2]);
@@ -50,6 +53,7 @@ function createBookElementElement() {
     'data-pos',
     `${myLibrary.indexOf(this)}`
   );
+
   this.data = myLibrary.indexOf(this);
 }
 
@@ -108,8 +112,9 @@ function scrollBook(btn) {
   const miscellaneous = [
     ...document.querySelectorAll('.bookcase__miscellaneous'),
   ];
-  let top;
+
   let addRemove;
+  let top;
 
   if (btn.className.includes('btn--book--active'))
     (top = 0), (addRemove = 'remove');
@@ -147,15 +152,28 @@ function deleteBook(btn) {
     myLibrary[u].create();
   }
 
-  if (isStorageAvailable('localStorage')) {
-    localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
-  } else console.log('noLocalStorage');
+  store();
 }
 
 function read(btn) {
+  const book = [...document.querySelectorAll('.bookcase__book')];
+
+  let read;
   if (btn.className.includes('btn--read--active'))
-    btn.classList.remove('btn--read--active');
-  else btn.classList.add('btn--read--active');
+    btn.classList.remove('btn--read--active'), (read = 'no');
+  else btn.classList.add('btn--read--active'), (read = 'yes');
+
+  book.forEach((book) => {
+    if (book.contains(btn)) {
+      for (let u = 0; u < myLibrary.length; u++) {
+        if (myLibrary[u].data === +book.dataset['pos']) {
+          myLibrary[u].read = read;
+        }
+      }
+    }
+  });
+
+  store();
 }
 
 //Library
@@ -173,7 +191,8 @@ function book(
   ten,
   thirteen,
   pages,
-  data
+  data,
+  read
 ) {
   this.title = title;
   this.author = author;
@@ -186,12 +205,13 @@ function book(
   this.thirteen = thirteen;
   this.pages = pages;
   this.data = data;
+  this.read = read;
   this.info = () => {
     return `${this.title}, ${this.author}, ${this.description}, ${this.genre}, ${this.language}, ${this.publisher}, ${this.date}, ${this.ten}, ${this.thirteen}, ${this.pages}`;
   };
 }
 
-//create
+//Create
 
 book.prototype.create = createBookElementElement;
 
@@ -220,6 +240,7 @@ function addBookToLibrary() {
   const thirteen = input[8].value;
   const pages = input[9].value;
   const data = '';
+  const read = 'no';
 
   if (
     title !== '' &&
@@ -245,7 +266,8 @@ function addBookToLibrary() {
         ten,
         thirteen,
         pages,
-        data
+        data,
+        read
       )
     );
 
@@ -253,9 +275,7 @@ function addBookToLibrary() {
 
     clearForm();
 
-    if (isStorageAvailable('localStorage')) {
-      localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
-    } else console.log('noLocalStorage');
+    store();
   }
 }
 
@@ -275,12 +295,11 @@ getElement('.btn--add').addEventListener('click', addBookToLibrary);
 
 document.body.addEventListener('click', btn, false);
 
-const imput = document.querySelectorAll('.bookcase__form input');
-
-// local Storage
+// Local Storage
 
 function isStorageAvailable(type) {
   let storage;
+
   try {
     storage = window[type];
     let temp = 'yep';
@@ -300,9 +319,17 @@ function isStorageAvailable(type) {
   }
 }
 
+function store() {
+  if (isStorageAvailable('localStorage')) {
+    localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
+  } else console.log('noLocalStorage');
+}
+
 function getLocaleStorage() {
   let unparseMyLibrary = localStorage.getItem('myLibrary');
   let parseMyLibrary = JSON.parse(unparseMyLibrary);
+
+  if (parseMyLibrary === null) return;
 
   for (let u = 0; u < parseMyLibrary.length; u++) {
     myLibrary.push(
@@ -317,7 +344,8 @@ function getLocaleStorage() {
         parseMyLibrary[u].ten,
         parseMyLibrary[u].thirteen,
         parseMyLibrary[u].pages,
-        parseMyLibrary[u].data
+        parseMyLibrary[u].data,
+        parseMyLibrary[u].read
       )
     );
 
